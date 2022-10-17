@@ -1,0 +1,27 @@
+#!/usr/bin/bash
+
+# check we have a snippets directory
+[[ -z $SNIPPETS ]] && echo "SNIPPETS directory undefined" && exit 1
+
+
+snip() {
+    local snippet="$1"
+    local snippet_dir="$SNIPPETS"
+
+    # check for a readable snippet file
+    if [[ -r "$snippet_dir/$snippet" ]]; then
+        cat "$snippet_dir/$snippet"
+        exit
+    fi
+    
+    # yell if we can't find the snippet
+    echo "Snippet $snippet not found"
+}
+
+# completion 
+if [[ -n $COMP_LINE ]]; then
+    printf "foo\nbar\nblah"
+    exit
+fi
+
+snip "$@"
